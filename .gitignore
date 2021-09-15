@@ -1,0 +1,22 @@
+# Maven
+/target
+release.properties
+pom.xml.*
+
+# IDEs
+/*.iml
+.checkstyle
+.classpath
+.project
+/.settings
+/.idea
+nbactions.xml
+.dbeaver-data-sources.xml
+nb-configuration.xml
+licenseheader.txt
+
+# Volumes Docker
+/.data
+
+# mac
+**/.DS_Store
