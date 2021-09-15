@@ -6,7 +6,7 @@
 
     <groupId>br.com.wesleyody</groupId>
     <artifactId>procob-search</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
