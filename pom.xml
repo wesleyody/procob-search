@@ -6,7 +6,7 @@
 
     <groupId>br.com.wesleyody</groupId>
     <artifactId>procob-search</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.3</version>
     <packaging>jar</packaging>
 
     <properties>
