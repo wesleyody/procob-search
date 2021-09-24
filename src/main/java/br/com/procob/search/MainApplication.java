@@ -2,15 +2,12 @@ package br.com.procob.search;
 
 import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -96,15 +93,15 @@ public class MainApplication {
         for ( Row row : sheet ) {
             if ( firstRow && isFirstRowHeader ) {
                 indexDocumentCell = row.getLastCellNum();
-                Cell documentCell = row.getCell( indexDocumentCell - 1 );
+                Cell documentCell = row.createCell( indexDocumentCell );
                 documentCell.setCellValue( "Documento" );
 
                 indexPhoneCell = row.getLastCellNum();
-                Cell phoneCell = row.createCell( indexPhoneCell - 1 );
+                Cell phoneCell = row.createCell( indexPhoneCell );
                 phoneCell.setCellValue( "Telefone(s)" );
 
                 indexAddressCell = row.getLastCellNum();
-                Cell addressCell = row.createCell( indexAddressCell - 1 );
+                Cell addressCell = row.createCell( indexAddressCell );
                 addressCell.setCellValue( "Endereço(s)" );
 
                 firstRow = false;
@@ -113,7 +110,15 @@ public class MainApplication {
                 firstRow = false;
             }
 
-            String name = row.getCell( nameCellNumber - 1 ).getStringCellValue().trim();
+            Cell cellName = row.getCell( nameCellNumber - 1 );
+            if ( cellName == null ) {
+                break;
+            }
+            String name = cellName.getStringCellValue();
+            if ( name == null ) {
+                break;
+            }
+            name = name.trim();
 
             if ( !StringUtils.hasText( name ) ) {
                 continue;
@@ -179,11 +184,7 @@ public class MainApplication {
             addressCell.setCellValue( String.join( ", ", addresses ) );
         }
 
-        String date = LocalDateTime.now().format( DateTimeFormatter.ofPattern( "yyyy-MM-dd HH-mm" ) );
-        FileOutputStream outputStream = new FileOutputStream( ".\\"  + date + " " + file.getName() );
-        workbook.write( outputStream );
         workbook.close();
-        outputStream.close();
     }
 
     private static String formatAddress ( ResponseContent content ) {
